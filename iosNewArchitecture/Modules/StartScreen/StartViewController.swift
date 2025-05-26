@@ -10,13 +10,13 @@ import UIKit
 class StartViewController: UIViewController {
     
     private let startButton = UIButton()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         configureUI()
     }
-
+    
     private func configureUI() {
         view.addSubview(startButton)
         startButton.setTitle("Open productCard", for: .normal)
@@ -41,5 +41,5 @@ class StartViewController: UIViewController {
         viewController.modalPresentationStyle = .fullScreen
         present(viewController, animated: true)
     }
-
+    
 }

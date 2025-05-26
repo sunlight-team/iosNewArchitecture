@@ -10,19 +10,19 @@ import SwiftUI
 struct ProductCardView: View, ViewProtocol {
     @ObservedObject var state: ProductCard.ViewState
     let reducer: Reducer<ProductCard.ViewModel>
-
+    
     private var isDragGestureEnabled: Bool {
         if case .bottom = state.position {
             return true
         }
         return false
     }
-
+    
     init(state: ProductCard.ViewState, reducer: Reducer<ProductCard.ViewModel>) {
         self.state = state
         self.reducer = reducer
     }
-
+    
     var body: some View {
         ProductCardViewLayout(
             header: { header },
@@ -38,14 +38,14 @@ struct ProductCardView: View, ViewProtocol {
         .animation(.default, value: state.basketLoadingState)
         .animation(.default, value: state.loadingState)
     }
-
+    
     private var header: some View {
         NavigationHeader(
             state: state.navigationHeader,
             onAction: { reducer(.onNavigationHeaderAction($0)) }
         )
     }
-
+    
     private var sideButtons: some View {
         SideButtons(
             position: state.position,
@@ -54,19 +54,19 @@ struct ProductCardView: View, ViewProtocol {
         )
         .opacity(1 - state.navigationHeaderOpacity)
     }
-
+    
     private var slider: some View {
         ImageSliderAssembly(
             state: $state.imageSliderAssembly,
             onAction: { reducer(.onImageSliderAction($0)) }
         )
     }
-
+    
     private var content: some View {
         ProductCardList(state: state, reducer: reducer)
             .offset(y: state.offset)
     }
-
+    
     private func footer(geometry: GeometryProxy) -> some View {
         FooterButtons(
             state: state.footerButtons,

@@ -11,7 +11,7 @@ struct ActivityButton: View {
     let iconName: String
     let backgroundOpacity: Double
     let onAction: () -> Void
-
+    
     var body: some View {
         Button {
             onAction()
@@ -19,14 +19,14 @@ struct ActivityButton: View {
             ZStack {
                 Color.clear
                     .frame(square: 44)
-
+                
                 Circle()
                     .fill(
                         Color.white.opacity(0.56)
                             .opacity(backgroundOpacity)
                     )
                     .frame(width: 36)
-
+                
                 Image(iconName)
                     .resizable()
                     .frame(square: 24)

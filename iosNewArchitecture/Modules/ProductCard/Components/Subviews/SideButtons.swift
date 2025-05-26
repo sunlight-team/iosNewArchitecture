@@ -10,34 +10,34 @@ import SwiftUI
 
 struct SideButtons: View {
     // MARK: - Nested Types
-
+    
     enum Action {
         case onTapShareButton
         case onTapSimilarButton
         case onTapSetsButton
     }
-
+    
     // MARK: - Properties
-
+    
     let position: ProductCard.ViewState.Position
     let loadingState: LoadingState
     let onAction: (Action) -> Void
-
+    
     private var opacity: Double {
         switch position {
         case .bottom,
-             .middle:
+                .middle:
             1
         case .top:
             0
         }
     }
-
+    
     var body: some View {
         switch loadingState {
         case .hide,
-             .loadError,
-             .none:
+                .loadError,
+                .none:
             VStack(spacing: 6) {
                 ActivityButton(iconName: Constant.shareIcon, backgroundOpacity: 1) { onAction(.onTapShareButton) }
                 ActivityButton(iconName: Constant.similarIcon, backgroundOpacity: 1) { onAction(.onTapSimilarButton) }

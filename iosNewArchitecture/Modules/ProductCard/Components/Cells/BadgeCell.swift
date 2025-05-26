@@ -9,7 +9,7 @@ import SwiftUI
 
 struct BadgeCell: View {
     let name: String
-
+    
     var body: some View {
         Text(name)
             .font(.system(size: 12))

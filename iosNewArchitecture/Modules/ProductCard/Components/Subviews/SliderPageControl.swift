@@ -11,19 +11,19 @@ struct SliderPageControl: View {
     let totalSteps: Int
     let currentStep: Int
     let widthRatio: CGFloat = 0.3
-
+    
     var height: CGFloat {
         totalSteps > 1 ? 4 : 0
     }
-
+    
     var screenWidth: CGFloat {
         UIScreen.main.bounds.width
     }
-
+    
     var offset: CGFloat {
         (1 - widthRatio) * screenWidth * CGFloat(currentStep) / CGFloat(totalSteps - 1)
     }
-
+    
     var body: some View {
         Color.clear
             .frame(height: height)

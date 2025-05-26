@@ -10,7 +10,7 @@ import UIKit
 
 final class ProductCardState: ViewStateProtocol {
     // MARK: - Properties
-
+    
     @Published var article: String
     @Published var loadingState: LoadingState
     @Published var position: Position
@@ -25,14 +25,14 @@ final class ProductCardState: ViewStateProtocol {
     @Published var isAddedToBasket: Bool
     @Published var bottomSafeAreaInset: CGFloat
     @Published var priceDescription: String
-
+    
     var shouldShowPriceInButton: Bool {
         if case .bottom = position {
             return true
         }
         return !isPriceCellVisible
     }
-
+    
     var navigationHeaderOpacity: Double {
         switch position {
         case .bottom:
@@ -43,7 +43,7 @@ final class ProductCardState: ViewStateProtocol {
             1
         }
     }
-
+    
     var offset: Double {
         switch position {
         case .bottom:
@@ -54,7 +54,7 @@ final class ProductCardState: ViewStateProtocol {
             PublicConstant.navBarHeight
         }
     }
-
+    
     var navigationHeader: NavigationHeader.ViewState {
         .init(
             article: article,
@@ -62,7 +62,7 @@ final class ProductCardState: ViewStateProtocol {
             opacity: navigationHeaderOpacity
         )
     }
-
+    
     var priceCell: PriceCell.ViewState {
         .init(
             name: "Серебрянные часы Bastet. Швейцарский механизм и знаменитые Белорусские стрелки", // stub data
@@ -73,7 +73,7 @@ final class ProductCardState: ViewStateProtocol {
             position: position
         )
     }
-
+    
     var footerButtons: FooterButtons.ViewState {
         .init(
             loadingState: loadingState,
@@ -86,7 +86,7 @@ final class ProductCardState: ViewStateProtocol {
             isAddedToBasket: isAddedToBasket
         )
     }
-
+    
     var imageSliderAssembly: ImageSliderAssembly.ViewState {
         get {
             .init(
@@ -102,9 +102,9 @@ final class ProductCardState: ViewStateProtocol {
             currentSlidingStep = newValue.currentStep
         }
     }
-
+    
     // MARK: - Lifecycle
-
+    
     init(input: ProductCard.Input?) {
         article = input?.article ?? ""
         loadingState = .loading
@@ -127,9 +127,9 @@ extension ProductCard.ViewState {
     func makeStubData() {
         article = "123456"
         productImages = [
-         NetworkImage(url: URL(string: "https://g7.sunlight.net/media/content_img/0d883638ecfc48617f1fc8c4f9db4da1cae1e469.jpg")),
-         NetworkImage(url: URL(string: "https://g4.sunlight.net/media/content_img/3b92c049b0de56c2cfe9266ca622e26653d6aa78.jpg")),
-         NetworkImage(url: URL(string: "https://g2.sunlight.net/media/content_img/1477c4205b7b7f6472d2aaaa33e4118abd337c1d.jpg")),
+            NetworkImage(url: URL(string: "https://g7.sunlight.net/media/content_img/0d883638ecfc48617f1fc8c4f9db4da1cae1e469.jpg")),
+            NetworkImage(url: URL(string: "https://g4.sunlight.net/media/content_img/3b92c049b0de56c2cfe9266ca622e26653d6aa78.jpg")),
+            NetworkImage(url: URL(string: "https://g2.sunlight.net/media/content_img/1477c4205b7b7f6472d2aaaa33e4118abd337c1d.jpg")),
         ]
         actualPrice = "14 272 ₽"
         initialPrice = "20 989 ₽"

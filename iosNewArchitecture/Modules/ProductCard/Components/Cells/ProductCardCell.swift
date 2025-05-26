@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ProductCardCell: View {
     let index: Int
-
+    
     var body: some View {
         ZStack {
             Color.white

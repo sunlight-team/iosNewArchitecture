@@ -24,9 +24,3 @@ struct CellDivider: View {
         .background { Color.gray100 }
     }
 }
-
-#Preview {
-    Color.black
-        .overlay(CellDivider())
-        .ignoresSafeArea()
-}

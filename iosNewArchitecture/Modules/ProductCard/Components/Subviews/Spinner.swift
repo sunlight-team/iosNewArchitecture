@@ -8,31 +8,27 @@
 import SwiftUI
 
 
-public struct Spinner: View {
-    // MARK: - Public Properties
-
-//    @Environment(\.size) var size
-//    @Environment(\.spinnerStyle) var spinnerStyle
-
+struct Spinner: View {
+    
     // MARK: - Private Properties
-
+    
     @State private var rotationAngle: Angle = .degrees(0)
     @State private var progressEnd: CGFloat = 1
     @State private var progressStart: CGFloat = 0
-
+    
     private var lineWidth: CGFloat
-
+    
     // MARK: - Init
-
-    public init(lineWidth: CGFloat = 2) {
+    
+    init(lineWidth: CGFloat = 2) {
         self.lineWidth = lineWidth
     }
-
-    public var body: some View {
+    
+    var body: some View {
         ZStack {
             Circle()
                 .stroke(.white, lineWidth: lineWidth)
-
+            
             Circle()
                 .trim(from: progressStart, to: progressEnd)
                 .stroke(
@@ -45,7 +41,6 @@ public struct Spinner: View {
                 .rotationEffect(rotationAngle)
         }
         .frame(width: 24, height: 24)
-//        .aspectRatio(1, contentMode: .fit)
         .onAppear {
             startAnimation()
         }
@@ -59,16 +54,16 @@ extension Spinner {
         withAnimation(.linear(duration: 4.0).repeatForever(autoreverses: false)) {
             rotationAngle = .degrees(360)
         }
-
+        
         withAnimation(.easeInOut(duration: 1.0)) {
             progressStart = 0
             progressEnd = 1
         }
-
+        
         withAnimation(.easeInOut(duration: 2.0).delay(1)) {
             progressStart = 1.05
         }
-
+        
         Task { @MainActor in
             try? await Task.sleep(nanoseconds: UInt64(3 * Double(NSEC_PER_SEC)))
             progressStart = 0

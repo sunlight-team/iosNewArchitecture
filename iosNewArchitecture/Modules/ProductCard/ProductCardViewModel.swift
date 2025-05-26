@@ -8,9 +8,9 @@
 import Foundation
 
 actor ProductCardViewModel: ViewModelProtocol {
-
+    
     // MARK: - Nested Types
-
+    
     enum Action {
         case viewDidLoad
         case dismiss
@@ -24,18 +24,18 @@ actor ProductCardViewModel: ViewModelProtocol {
         case onFooterButtonsAction(FooterButtons.Action)
         case onPriceCellAction(PriceCell.Action)
     }
-
-
+    
+    
     // MARK: - Private Properties
-
+    
     private let router: ProductCard.Router?
     private let state: ProductCard.ViewState
     private let input: ProductCard.Input?
     private let output: ProductCard.Output?
     private var isAnimating = false
-   
+    
     // MARK: - Initializer
-
+    
     init(
         state: ProductCard.ViewState,
         input: ProductCard.Input?,
@@ -47,9 +47,9 @@ actor ProductCardViewModel: ViewModelProtocol {
         self.output = output
         self.router = router
     }
-
+    
     // MARK: - Internal Methods
-
+    
     func handle(_ action: Action) async {
         switch action {
         case .viewDidLoad:
@@ -95,7 +95,7 @@ extension ProductCard.ViewModel {
             print(action)
         }
     }
-
+    
     private func handleSideButtons(action: SideButtons.Action) async {
         switch action {
         case .onTapShareButton:
@@ -106,7 +106,7 @@ extension ProductCard.ViewModel {
             print(action)
         }
     }
-
+    
     private func handleFooterButtons(action: FooterButtons.Action) async {
         switch action {
         case .onTapMapButton:
@@ -115,14 +115,14 @@ extension ProductCard.ViewModel {
             await addToBasket()
         }
     }
-
+    
     private func handlePriceCell(action: PriceCell.Action) async {
         switch action {
         case let .onSetPriceCellVisible(isVisible):
             await setPriceCellVisible(isVisible)
         }
     }
-
+    
     private func handleImageSlider(action: ImageSliderAssembly.Action) async {
         switch action {
         case let .onTapSlider(index):
@@ -133,38 +133,38 @@ extension ProductCard.ViewModel {
             await saveSlidingStep(step)
         }
     }
-
+    
     private func setInitialState() async { 
         await state.update { $0.makeStubData() }
     }
-
+    
     private func setBottomSafeAreaInset(_ inset: CGFloat) async {
         await state.update { $0.bottomSafeAreaInset = inset }
     }
-
+    
     private func dismiss() async {
         await router?.dismiss()
     }
-
+    
     private func saveSlidingStep(_ step: Int) async {
         try? await Task.sleep(seconds: 0.1)
         await state.update {
             $0.currentSlidingStep = step
         }
     }
-
+    
     private func setPosition() async {
         if await !state.isImageSliderVertical {
             await state.update { $0.position = .middle }
         }
     }
-
+    
     private func setPriceCellVisible(_ isVisible: Bool) async {
         await state.update { state in
             state.isPriceCellVisible = isVisible
         }
     }
-
+    
     private func addToBasket() async {
         await state.update {
             $0.basketLoadingState = .loading
@@ -175,14 +175,14 @@ extension ProductCard.ViewModel {
             state.basketLoadingState = .hide
         }
     }
-
+    
     private func viewDidLoad() async {
         try? await Task.sleep(seconds: 2)
         await setInitialState()
         await state.update { $0.loadingState = .hide }
         await setPosition()
     }
-
+    
     private func updatePosition(for transition: CGFloat) async {
         guard !isAnimating else { return }
         isAnimating = true
@@ -191,22 +191,22 @@ extension ProductCard.ViewModel {
         try? await Task.sleep(seconds: Constant.animationDuration)
         isAnimating = false
     }
-
+    
     private func handle(transition: CGFloat) async -> ProductCard.ViewState.Position {
         switch await (state.position, transition) {
         case (.bottom, 0...):
-            .middle
+                .middle
         case (.middle, ...0):
             await state.isImageSliderVertical ? .bottom : .middle
         case (.middle, 0...):
-            .top
+                .top
         case (.top, ...0):
-            .middle
+                .middle
         default:
             await state.position
         }
     }
-
+    
     private func switchPriceStyle() async {
         await state.update { $0.isPriceCellVisible.toggle() }
     }

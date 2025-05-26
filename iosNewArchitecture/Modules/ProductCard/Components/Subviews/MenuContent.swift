@@ -11,7 +11,7 @@ struct MenuContent: View {
     let name: String
     let iconName: String
     let onAction: () -> Void
-
+    
     var body: some View {
         Button {
             onAction()

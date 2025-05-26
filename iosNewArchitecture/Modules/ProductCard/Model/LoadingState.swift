@@ -12,4 +12,4 @@ public enum LoadingState: Equatable {
     case loading
     case loadError(error: String)
     case hide
-    }
+}

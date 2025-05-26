@@ -19,18 +19,18 @@ struct ImageSliderAssembly: View {
         let isImageSliderVertical: Bool
         let productImages: [NetworkImage]
     }
-
+    
     enum Action {
         case onTapSlider(Int)
         case onTapReview(Int)
         case onSaveSlidingStep(Int)
     }
-
+    
     // MARK: - Properties
-
+    
     @Binding var state: ViewState
     let onAction: (Action) -> Void
-
+    
     private var sliderFrameHeight: CGFloat {
         switch state.position {
         case .bottom:
@@ -41,7 +41,7 @@ struct ImageSliderAssembly: View {
             0
         }
     }
-
+    
     private var assemblyFrameHeight: CGFloat {
         if case .bottom = state.position {
             UIScreen.main.bounds.height - state.initialOffset
@@ -49,7 +49,7 @@ struct ImageSliderAssembly: View {
             state.isImageSliderVertical ? UIScreen.main.bounds.height - state.initialOffset : UIScreen.main.bounds.width
         }
     }
-
+    
     private var isNeedBottomSpacer: Bool {
         switch state.position {
         case .bottom:
@@ -60,31 +60,31 @@ struct ImageSliderAssembly: View {
             true
         }
     }
-
+    
     var body: some View {
         mainView
             .frame(height: assemblyFrameHeight)
     }
-
+    
     @ViewBuilder
     private var mainView: some View {
         switch state.loadingState {
         case .loadError(error: _),
-             .loading,
-             .none:
+                .loading,
+                .none:
             skeleton
         case .hide:
             assembly
         }
     }
-
+    
     private var skeleton: some View {
         Skeleton()
             .overlay {
                 Image(.sunlightLogoGray124X115)
             }
     }
-
+    
     private var assembly: some View {
         ZStack(alignment: .bottom) {
             VStack(spacing: 0) {
@@ -97,7 +97,7 @@ struct ImageSliderAssembly: View {
                 .frame(height: sliderFrameHeight)
                 if isNeedBottomSpacer { Spacer() }
             }
-
+            
             SliderPageControl(totalSteps: state.productImages.count, currentStep: state.currentStep)
         }
     }

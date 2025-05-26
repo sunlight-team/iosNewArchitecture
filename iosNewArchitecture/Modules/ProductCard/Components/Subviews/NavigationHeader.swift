@@ -9,13 +9,13 @@ import SwiftUI
 
 struct NavigationHeader: View {
     // MARK: - Nested Types
-
+    
     struct ViewState {
         let article: String
         let loadingState: LoadingState
         let opacity: Double
     }
-
+    
     enum Action {
         case onTapBackButton
         case onTapFavoriteButton
@@ -23,31 +23,31 @@ struct NavigationHeader: View {
         case onTapSimilarButton
         case onTapSetsButton
     }
-
+    
     // MARK: - Properties
-
+    
     let state: ViewState
     let onAction: (Action) -> Void
-
+    
     private var buttonBackgroundOpacity: Double {
         1 - state.opacity
     }
-
+    
     private var moreButtonSize: Double {
         state.opacity == 0 ? state.opacity : state.opacity * 36
     }
-
+    
     private var favoriteButtonOpacity: Double {
         switch state.loadingState {
         case .loadError,
-             .loading,
-             .none:
+                .loading,
+                .none:
             0
         case .hide:
             1
         }
     }
-
+    
     var body: some View {
         Rectangle()
             .fill(Color.white)
@@ -64,7 +64,7 @@ struct NavigationHeader: View {
                     }
             }
     }
-
+    
     private var buttons: some View {
         HStack {
             ActivityButton(
@@ -72,9 +72,9 @@ struct NavigationHeader: View {
                 backgroundOpacity: buttonBackgroundOpacity,
                 onAction: { onAction(.onTapBackButton) }
             )
-
+            
             Spacer()
-
+            
             HStack(spacing: 0) {
                 ActivityButton(
                     iconName: Constant.favoriteIcon,
@@ -88,7 +88,7 @@ struct NavigationHeader: View {
             }
         }
     }
-
+    
     private var moreButton: some View {
         Menu {
             MenuContent(name: Constant.shareText, iconName: Constant.shareIcon) { onAction(.onTapShareButton) }

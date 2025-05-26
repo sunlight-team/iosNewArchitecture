@@ -25,4 +25,4 @@ final class ProductCardRouter: RouterProtocol {
         }
     }
 }
-    
+

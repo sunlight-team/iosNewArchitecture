@@ -12,7 +12,7 @@ struct ImageSlider: View {
     let media: [NetworkImage]
     let onTapSlider: (Int) -> Void
     let onSaveSlidingStep: (Int) -> Void
-
+    
     var body: some View {
         TabView(selection: $currentStep) {
             ForEach(media.indices, id: \.self) { index in

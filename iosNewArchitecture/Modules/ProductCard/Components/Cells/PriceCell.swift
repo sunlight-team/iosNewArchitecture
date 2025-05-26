@@ -9,7 +9,7 @@ import SwiftUI
 
 struct PriceCell: View {
     // MARK: - Nested Types
-
+    
     struct ViewState {
         let name: String
         let bages: [String]
@@ -18,26 +18,26 @@ struct PriceCell: View {
         let priceDescription: String
         let position: ProductCard.ViewState.Position
     }
-
+    
     enum Action {
         case onSetPriceCellVisible(Bool)
     }
-
+    
     // MARK: - Properties
-
+    
     let state: ViewState
     let onAction: (Action) -> Void
-
+    
     private var nameAlignment: TextAlignment {
         switch state.position {
         case .bottom:
-            .center
+                .center
         case .middle,
-             .top:
-            .leading
+                .top:
+                .leading
         }
     }
-
+    
     private var lineLimit: Int? {
         if case .bottom = state.position {
             return 1
@@ -45,7 +45,7 @@ struct PriceCell: View {
             return nil
         }
     }
-
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             badges
@@ -55,10 +55,10 @@ struct PriceCell: View {
                 .multilineTextAlignment(nameAlignment)
                 .font(.system(size: 16))
                 .frame(maxWidth: .infinity)
-
+            
             Text(state.actualPrice)
                 .font(.system(size: 26, weight: .bold))
-
+            
             Text(state.priceDescription)
                 .foregroundStyle(Color.infoBlue500)
         }
@@ -67,14 +67,14 @@ struct PriceCell: View {
         .onAppear { onAction(.onSetPriceCellVisible(true)) }
         .onDisappear { onAction(.onSetPriceCellVisible(false)) }
     }
-
+    
     @ViewBuilder
     private var badges: some View {
         switch state.position {
         case .bottom:
             EmptyView()
         case .middle,
-             .top:
+                .top:
             ScrollView(.horizontal) {
                 HStack(spacing: 4) {
                     ForEach(state.bages, id: \.self) {

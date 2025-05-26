@@ -16,10 +16,10 @@ protocol ViewStateProtocol: ObservableObject, Sendable {
     
     init(input: Input?)
 }
-    
+
 extension ViewStateProtocol {
-func update(_ handler: @Sendable @MainActor (Self) -> Void) async {
-    await MainActor.run { handler(self) }
+    func update(_ handler: @Sendable @MainActor (Self) -> Void) async {
+        await MainActor.run { handler(self) }
     }
 }
 
@@ -177,7 +177,7 @@ final class GlobalRouter {
     init(viewController: UIViewController) {
         self.viewController = viewController
     }
-
+    
     func push<M: ModuleProtocol>(
         _ module: M.Type,
         input: M.ViewModel.Input? = nil,

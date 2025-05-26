@@ -9,7 +9,7 @@ import SwiftUI
 
 struct FooterButtons: View {
     // MARK: - Nested Types
-
+    
     struct ViewState {
         let loadingState: LoadingState
         let bottomInset: CGFloat
@@ -20,26 +20,26 @@ struct FooterButtons: View {
         let isAvailableToBuy: Bool
         let isAddedToBasket: Bool
     }
-
+    
     enum Action {
         case onTapMapButton
         case onTapBasketButton
     }
-
+    
     // MARK: - Properties
-
+    
     let state: ViewState
     let onAction: (Action) -> Void
-
+    
     private var basketButtonText: String {
         guard state.isAvailableToBuy else { return Constant.watchSimilar }
         return state.isAddedToBasket ? Constant.inBasket : Constant.toBasket
     }
-
+    
     private var bottomPadding: CGFloat {
         state.bottomInset == 0 ? 20 : 34
     }
-
+    
     var body: some View {
         HStack(spacing: 8) {
             buttons
@@ -48,7 +48,7 @@ struct FooterButtons: View {
         .padding(EdgeInsets(top: 12, leading: 12, bottom: bottomPadding, trailing: 12))
         .background( Color.white )
     }
-
+    
     @ViewBuilder
     private var basketButtonLabel: some View {
         switch state.basketLoadingState {
@@ -56,11 +56,11 @@ struct FooterButtons: View {
             Spinner(lineWidth: 2.5)
         case .hide,
                 .loadError(error: _),
-             .none:
+                .none:
             basketButtonTextLabel
         }
     }
-
+    
     private var priceLabel: some View {
         VStack(spacing: 0) {
             Text(state.actualPrice)
@@ -70,7 +70,7 @@ struct FooterButtons: View {
                 .font(.system(size: 12))
         }
     }
-
+    
     @ViewBuilder
     private var basketButtonTextLabel: some View {
         if !state.shouldShowPriceInButton || state.isAddedToBasket {
@@ -88,13 +88,13 @@ struct FooterButtons: View {
             }
         } else { priceLabel }
     }
-
+    
     @ViewBuilder
     private var buttons: some View {
         switch state.loadingState {
         case .loadError(error: _),
-             .loading,
-             .none:
+                .loading,
+                .none:
             ForEach(0 ..< 2) { _ in
                 Skeleton()
                     .clipShape(.rect(cornerRadius: 10))
@@ -113,7 +113,7 @@ struct FooterButtons: View {
                         )
                 }
             }
-
+            
             Button {
                 onAction(.onTapBasketButton)
                 UIImpactFeedbackGenerator(style: .rigid).impactOccurred()

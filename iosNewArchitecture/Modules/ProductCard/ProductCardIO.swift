@@ -9,7 +9,7 @@ import Foundation
 
 struct ProductCardInput {
     let article: String
-
+    
     init(article: String) {
         self.article = article
     }
@@ -17,7 +17,7 @@ struct ProductCardInput {
 
 struct ProductCardOutput {
     let didChangeLike: (_ productId: UUID, _ isLiked: Bool) -> Void
-
+    
     init(didChangeLike: @escaping (_: UUID, _: Bool) -> Void) {
         self.didChangeLike = didChangeLike
     }
