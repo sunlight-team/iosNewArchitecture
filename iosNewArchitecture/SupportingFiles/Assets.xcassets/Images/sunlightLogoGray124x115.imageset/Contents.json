@@ -1,0 +1,15 @@
+{
+  "images" : [
+    {
+      "filename" : "sunlightLogoGray124x115.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "properties" : {
+    "preserves-vector-representation" : true
+  }
+}
