@@ -14,12 +14,8 @@ extension View {
     }
     
     @ViewBuilder
-    func frame(square size: CGFloat, alignment: Alignment? = nil) -> some View {
-        if let alignment {
-            frame(width: size, height: size, alignment: alignment)
-        } else {
-            frame(width: size, height: size)
-        }
+    func frame(square size: CGFloat, alignment: Alignment = .center) -> some View {
+        frame(width: size, height: size, alignment: alignment)
     }
     
     @ViewBuilder func valueChanged<T: Equatable>(value: T, onChange: @escaping (T) -> Void) -> some View {

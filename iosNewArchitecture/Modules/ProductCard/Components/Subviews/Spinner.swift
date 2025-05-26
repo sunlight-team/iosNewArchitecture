@@ -64,7 +64,7 @@ extension Spinner {
             progressStart = 1.05
         }
         
-        Task { @MainActor in
+        Task {
             try? await Task.sleep(nanoseconds: UInt64(3 * Double(NSEC_PER_SEC)))
             progressStart = 0
             progressEnd = 0
